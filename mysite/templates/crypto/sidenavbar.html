@@ -1,0 +1,92 @@
+{% load static %}
+
+{% block sidenav %}
+<div class="ui sidebar inverted vertical menu">
+    <div class="ui doubling stackable grid container">
+
+        <div class="ui inverted centered raised item"></div>
+
+        {% comment %}The User Item starts here!{% endcomment %}
+        {% if user.is_authenticated %}
+        <div class="ui inverted centered raised item">
+            <a href="/"><img src="{% static 'crypto/img/zlatan.jpg' %}" class="ui small circular centered image"></a>
+            <br>
+            <div class="ui bottom attached inverted" style="text-align: center;">
+                <h2 class="ui inverted header">{{user.username}}</h2>
+                <!-- <span class="ui inverted meta">Associate Professor</span> -->
+            </div>
+        </div>
+        {% endif %}
+        {% comment %}The User Item ends here!{% endcomment %}
+
+        <div class="ui divider inverted"></div>
+
+        {% comment %}The Modules Accordian starts here!{% endcomment %}
+        <div class="ui vertical inverted accordion fluid menu" style="margin-bottom: 24px;">
+            <div class="item">
+                <a class="active title">
+                    <i class="dropdown icon"></i>
+                    <span class="ui inverted header">
+                        Quizes!!
+                    </span>
+                </a>
+                <div class="content">
+                    <div class="items">
+                        <a class="item" href="#">
+                            <h4>Past Quizes</h4>
+                        </a>
+
+                        <a class="item" href="#">
+                            <h4>Current Quizes</h4>
+                        </a>
+
+                        <a class="item" href="#">
+                            <h4>Future Quizes</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %}The Modules Accordian ends here!{% endcomment %}
+        {% if user.is_superuser %}
+        <a class="centered raised item" href="/make_admin">
+            <span class="inverted header">Appoint Admin</span>
+            <i class="large inverted child icon right floated"></i>
+        </a>
+        {% endif %}
+          {% if profile.is_admin %}
+        {% comment %}The email Item starts here!{% endcomment %}
+        <a class="centered raised item" href="/quiz/create_contest">
+            <span class="inverted header">Create Contests</span>
+            <i class="large inverted mail icon right floated"></i>
+        </a>
+        {% comment %}The email Item ends here!{% endcomment %}
+        {% endif %}
+        {% comment %}The Webpage Item starts here!{% endcomment %}
+        <div class="centered raised item">
+            <span class="inverted header">Webpage</span>
+            <i class="large inverted external icon right floated"></i>
+        </div>
+        {% comment %}The Webpage Item ends here!{% endcomment %}
+
+        {% comment %}The Activity Log Item starts here!{% endcomment %}
+        <div class="centered raised item">
+            <span class="inverted header">Activity Log</span>
+            <i class="large inverted area chart icon right floated"></i>
+        </div>
+        {% comment %}The Activity Log Item ends here!{% endcomment %}
+
+        {% comment %}The Logout Item starts here!{% endcomment %}
+        {% if user.is_authenticated %}
+        <a class="centered raised item" href="/logout/">
+            <span class="inverted header">Logout</span>
+            <i class="large inverted sign out icon right floated"></i>
+        </a>
+        {% endif %}
+        <div class="item"></div>
+        {% comment %}The Logout Item ends here!{% endcomment %}
+
+    </div>
+</div>
+
+{% endblock %}

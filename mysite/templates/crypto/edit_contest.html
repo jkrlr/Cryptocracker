@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+    <script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
+
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <div>
+        {% include 'crypto/sidenavbar.html' %}
+        {% block sidenav %}
+        {% endblock %}
+		    <div>
+          {% include 'crypto/navbar.html' %}
+          {% block navbar %}
+          {% endblock %}
+          <div class="ui grid">
+            <div class="centered fourteen wide column" style="margin-top:10em;margin-bottom:10em" >
+              <h2 class="ui center aligned icon header">
+                <i class=" circular file text icon"></i>
+                {{details.contest_name}}
+              </h2>
+              <div class="ui piled segment centered fourteen wide column"style="margin-top:5em;margin-bottom:10em">
+                <div class="ui huge list">
+                  <div class="item">
+                    <div class="header">Description</div>
+                    {% for x in description %}
+                    <p>{{forloop.counter}}){{x}}</p>
+                    {% endfor %}
+                  </div>
+                  <div class="item">
+                    <div class="header">Rules</div>
+                    {% for x in rules %}
+                    <p>{{forloop.counter}}){{x}}</p>
+                    {% endfor %}
+                  </div>
+                  <div class="item">
+                    <div class="header">Prizes</div>
+                    {{prizes.0}}<br>{{prizes.1}}<br>{{prizes.2}}
+                  </div>
+                  <div class="item">
+                    <div class="header">Start Time</div>
+                    {{details.start_time}}
+                  </div>
+                  <div class="item">
+                    <div class="header">End Time</div>
+                    {{details.end_time}}
+                  </div>
+                  <div class="item">
+                    <div class="header">Number of Questions</div>
+                    {{details.question_count}}
+                  </div>
+                  <div class="item">
+                    <div class="header">Total Score</div>
+                    {{details.total_score}}
+                  </div>
+                </div>
+
+
+                {% if c_type == "1" %}
+                              {% for question in questions %}
+                                <div class="ui segment">
+                                  <div class="ui big list">
+                                    <div class="item">
+                                      <div class="header">Q>{{question.problem_statement}}</div>
+                                        {% if question.options1 %}<span>(1){{question.options1}}</span>{% endif %}<br>
+                                        {% if question.options2 %}<span>(2){{question.options2}}</span>{% endif %}<br>
+                                        {% if question.options3 %}<span>(3){{question.options3}}</span>{% endif %}<br>
+                                        {% if question.options4 %}<span>(4){{question.options4}}</span>{% endif %}<br>
+                                        {% if question.options5 %}<span>(5){{question.options5}}</span>{% endif %}<br>
+                                    </div>
+                                    <div class="item">
+                                      <div class="header">Score</div>
+                                          {{question.score}}
+                                    </div>
+                                    <div class="item">
+                                      <div class="header">Answer:</div>
+                                          {{question.option}}
+                                    </div>
+                                    {% if question.image %}
+                                    <div class="item">
+                                      <div class="header">Image</div>
+                                          <img src="{{ question.image }}" style="height:400px;width:600px"/>
+                                    </div>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              {% endfor %}
+                              <div class="ui large button" id="add_question_mcq">
+                                Add MCQ Question
+                              </div>
+
+                              <div class="ui segment" id="mcq_ques_div" style="display:none">
+                                <form class="ui large form" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                  <label>Problem Statement</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="comments icon"></i>
+                                        {{ form.problem_statement }}
+                                      </div>
+                                    </div>
+                                    <label>Upload Image</label>
+                                    {{ form.image }}
+                                    </br>
+                                    <label>Option 1</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.option1 }}
+                                      </div>
+                                    </div>
+                                    <label>Option 2</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.option2 }}
+                                      </div>
+                                    </div>
+                                    <label>Option 3</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.option3 }}
+                                      </div>
+                                    </div>
+                                    <label>Option 4</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.option4 }}
+                                      </div>
+                                    </div>
+                                    <label>Option 5</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.option5 }}
+                                      </div>
+                                    </div>
+                                    <label>Answer</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.answer }}
+                                      </div>
+                                    </div>
+                                    <label>Score</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form.score }}
+                                      </div>
+                                    </div>
+                                    <input type="submit"  class="ui button"value="Submit" />
+                                  </form>
+                            </div>
+                    {% elif c_type == "0" %}
+                                  {% for question in questions %}
+                                    <div class="ui segment">
+                                      <div class="ui big list">
+                                        <div class="item">
+                                          <div class="header">Q>{{question.problem_statement}}
+                                        <div class="item">
+                                          <div class="header">Score</div>
+                                              {{question.score}}
+                                        </div>
+                                        <div class="item">
+                                          <div class="header">Answer:</div>
+                                              {{question.option}}
+                                        </div>
+                                        <div class="item">
+                                          <div class="header">Per Attempt Penalty:</div>
+                                              {{question.negative}}
+                                        </div>
+                                        {% if question.image %}
+                                        <div class="item">
+                                          <div class="header">Image</div>
+                                              <img src="{{ question.image }}" style="height:400px;width:600px"/>
+                                        </div>
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  {% endfor %}<BR>
+                                  <div class="ui large button" id="add_question_one_word">
+                                    Add One Word Correct Question
+                                  </div>
+
+                                  <div class="ui segment" id="one_word_ques_div" style="display:none">
+                                    <form class="ui large form" method="post" enctype="multipart/form-data" >
+                                    {% csrf_token %}
+                                      <label>Problem Statement</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="comments icon"></i>
+                                            {{ form.problem_statement }}
+                                          </div>
+                                        </div>
+                                        <label>Upload Image</label>
+                                        {{ form.image }}
+                                        </br>
+
+                                        <label>Answer</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="percent icon"></i>
+                                            {{ form.answer }}
+                                          </div>
+                                        </div>
+                                        <label>Score</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="percent icon"></i>
+                                            {{ form.score }}
+                                          </div>
+                                        </div>
+                                        <label>Per Wrong Attempt Penalty Percentage</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="percent icon"></i>
+                                            {{ form.negative }}
+                                          </div>
+                                        </div>
+                                        <input type="submit"  class="ui button"value="Submit" />
+                                      </form>
+                                </div>
+                    {% else %}
+
+                    {% endif %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+   	 <!-- logging out if no action for 30 minutes -->
+             	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+             	 <!-- disabling going back from the index page when logged in -->
+                <script type="text/javascript">
+                $(document).ready(function() {
+                     window.history.pushState(null, "", window.location.href);
+                     window.onpopstate = function() {
+                         window.history.pushState(null, "", window.location.href);
+                     };
+                 });
+                </script>
+      {% endif %}
+
+      <script type="text/javascript">
+      $(document).ready(function(){
+        $('.ui.accordion').accordion('refresh');
+
+        });
+      $('.ui.sidebar')
+          .sidebar('attach events', '#navbar #sidebartrigger')
+          // .sidebar('setting', 'transition', 'overlay')
+          // .sidebar('toggle')
+      ;
+      $('.special.cards .image').dimmer({
+        on: 'hover'
+      });
+
+      $('#add_question_mcq').click(function(){
+        var e = document.getElementById('mcq_ques_div');
+        if(e.style.display == 'block')
+          e.style.display = 'none';
+        else
+          e.style.display = 'block';
+      });
+
+            $('#add_question_one_word').click(function(){
+              var e = document.getElementById('one_word_ques_div');
+              if(e.style.display == 'block')
+                e.style.display = 'none';
+              else
+                e.style.display = 'block';
+            });
+      </script>
+  </body>
+</html>
