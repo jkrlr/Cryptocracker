@@ -35,8 +35,8 @@ SESSION_COOKIE_AGE = 1800
 # Application definition
 
 INSTALLED_APPS = [
-    'crypto',
-    'quiz',
+    'crypto.apps.CryptoConfig',
+    'quiz.apps.QuizConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,14 +84,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'cryptocracker',
-    #     'USER':'root',
-    #     'PASSWORD':'1',
-    #     'HOST':'localhost',
-    # }
 }
 
 
@@ -136,3 +128,10 @@ STATIC_URL = '/static/'  # os.path.join(BASE_DIR, "static/")
 STATIC_ROOT = 'static/'  # os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# AUTH_PROFILE_MODULE = 'crypto.Profile'
+# Login/Logout Redirect urls
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+
+# AUTH_USER_MODEL = 'crypto.Profile'

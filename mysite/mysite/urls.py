@@ -15,25 +15,24 @@ Including another URLconf
 """
 from django.urls import include, path, re_path
 from django.contrib import admin
-from crypto import views
+from crypto import views as crypto_views
 from django.conf.urls.static import static
 from django.conf import settings
 
-# app_name='crypto'
-import crypto
+app_name='crypto'
 import quiz
 urlpatterns = [
-    path('', views.base, name='base'),
+    path('', crypto_views.base, name='base'),
     path('admin/', admin.site.urls),
     path('quiz/', include('quiz.urls')),
-    path('signup/', views.signup, name='signup'),
-    path('login/', views.loginm, name='loginm'),
-    path('logout/', views.logoutm, name='logoutm'),
-    path('make_admin/', views.make_admin, name='make_admin'),
-    path('admin-form/', views.admin_form, name='admin_form'),
+    path('signup/', crypto_views.signup, name='signup'),
+    path('login/', crypto_views.loginm, name='loginm'),
+    path('logout/', crypto_views.logoutm, name='logoutm'),
+    path('make_admin/', crypto_views.make_admin, name='make_admin'),
+    path('admin-form/', crypto_views.admin_form, name='admin_form'),
     # url(r'^create_contest/',views.create_contest,name='create_contest'),
     # url('(?P<uname>[0-z]+)/', views.index, name='index'),
-    re_path(r'^(?P<uname>[0-z]+)/$', views.index, name='index'),
+    re_path(r'^(?P<uname>[0-z]+)/$', crypto_views.index, name='index'),
 ]
 
 if settings.DEBUG:

@@ -5,8 +5,7 @@ from django.views.decorators.cache import cache_control
 
 
 class Contests(models.Model):
-    contest_admin = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True)
+    contest_admin = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     contest_name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     rules = models.CharField(max_length=1000)
