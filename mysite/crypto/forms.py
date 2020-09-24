@@ -22,7 +22,7 @@ from .models import Profile
 class SinupForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['roll','phone']
+        fields = ['first_name','last_name','email','roll_no','phone_no']
 
 
 

@@ -65,25 +65,25 @@ def admin_form(request):
 
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SinupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username=form.cleaned_data.get('username')
-            name = form.cleaned_data.get('name')
+# def signup(request):
+#     if request.method == 'POST':
+#         form = SinupForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username=form.cleaned_data.get('username')
+#             name = form.cleaned_data.get('name')
 
-            fname, lname = name.split(' ')
-            fname = fname.title()
-            lname = lname.title()
+#             fname, lname = name.split(' ')
+#             fname = fname.title()
+#             lname = lname.title()
 
-            user = User(username=username, password=form.cleaned_data.get('password'),
-                        email=form.cleaned_data.get('email'), first_name=fname, last_name=lname)
-            user.set_password(form.cleaned_data.get('password'))
-            user.save()
-            profile = Profile(user=user, roll=form.cleaned_data.get('roll'), phone=form.cleaned_data.get('phone'))
-            profile.save()
-    return redirect('/')
+#             user = User(username=username, password=form.cleaned_data.get('password'),
+#                         email=form.cleaned_data.get('email'), first_name=fname, last_name=lname)
+#             user.set_password(form.cleaned_data.get('password'))
+#             user.save()
+#             profile = Profile(user=user, roll=form.cleaned_data.get('roll'), phone=form.cleaned_data.get('phone'))
+#             profile.save()
+#     return redirect('/')
 
 
 
@@ -116,6 +116,22 @@ def signup(request):
 #             #     user=user, roll=request.POST['roll'], phone=request.POST['phone'])
 #             # profile.save()
 #             return redirect('/')
+
+def signup(request):
+    if request.method == 'POST':
+        print(request.POST.get('username'), "l")
+        
+        name=request.POST.get('name')
+        fname,lname=name.split(' ')
+        fname=fname.title()
+        lname=lname.title()
+        user=User(username=request.POST['username'],password=request.POST['password'],email=request.POST['email'],first_name=fname,last_name=lname)
+        user.set_password(request.POST['password'])
+        user.save()
+        profile=Profile(user=user,roll_no=request.POST['roll_no'],phone_no=request.POST['phone_no'])
+        profile.save()
+        return redirect('/')
+
 
 
 def loginm(request):
