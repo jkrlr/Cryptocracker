@@ -419,14 +419,14 @@ def edit_contest(request,contest_id):
             if(form.is_valid()):
                 image=request.FILES['image']
                 filename, file_extenstion=os.path.splitext(request.FILES['image'].name)
-                full_path=settings.MEDIA_ROOT+"/"+contest_id
+                full_path=settings.MEDIA_ROOT+"/"+str(contest_id) ############
                 url=settings.MEDIA_URL+filename
                 if not os.path.isdir(full_path):
                     cmd="mkdir "+settings.MEDIA_ROOT+"/"+contest_id
                     subprocess.call(cmd,shell=True)
                 fs = FileSystemStorage(full_path,url)
                 file_name = fs.save(image.name, image)
-                uploaded_file_url = "/media/"+contest_id+"/"+image.name
+                uploaded_file_url = "/media/"+str(contest_id)+"/"+image.name #########
                 print(uploaded_file_url)
                 asnwer=form.cleaned_data['answer']
                 obj=Questions.objects.create(
